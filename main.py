@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import joblib
 import pandas as pd
+import unidecode
 
 app = Flask(__name__)
 
@@ -9,6 +10,11 @@ modelo = joblib.load('modelo_random_forest.pkl')
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    
+
+    # Remove todos os acentos dos nomes das colunas
+    dados_df.columns = [unidecode.unidecode(col) for col in dados_df.columns]
+
     dados = request.get_json()  # Recebe os dados em JSON
 
     # Converter os dados em DataFrame
