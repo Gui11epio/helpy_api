@@ -10,16 +10,18 @@ modelo = joblib.load('modelo_random_forest.pkl')
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    
-
-    # Remove todos os acentos dos nomes das colunas
-    dados_df.columns = [unidecode.unidecode(col) for col in dados_df.columns]
-
     dados = request.get_json()  # Recebe os dados em JSON
+    print("Dados recebidos:", dados)
+    
 
     # Converter os dados em DataFrame
     try:
         dados_df = pd.DataFrame([dados])
+
+        # Remove todos os acentos dos nomes das colunas
+        dados_df.columns = [unidecode.unidecode(col) for col in dados_df.columns]
+        print("Colunas do DataFrame:", dados_df.columns)  # Para verificar as colunas
+        
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
 
