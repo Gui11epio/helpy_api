@@ -15,15 +15,11 @@ def predict():
     # Converter os dados em DataFrame
     try:
         dados_df = pd.DataFrame([dados])
-
-        # Remove todos os acentos dos nomes das colunas
-        dados_df.columns = [unidecode.unidecode(col) for col in dados_df.columns]
-        
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
 
     # Definir as variáveis que representam problemas
-    variaveis_de_problemas = ['filtro_óleo', 'óleo_motor', 'filtro_ar', 'filtro_combustível', 'vela_ignição', 'fluido_freio', 'pastilhas_freio', 'embreagem']  # Coloque aqui os nomes das colunas que indicam problemas
+    variaveis_de_problemas = ['filtro_oleo', 'oleo_motor', 'filtro_ar', 'filtro_combustivel', 'vela_ignicao', 'fluido_freio', 'pastilhas_freio', 'embreagem']  # Coloque aqui os nomes das colunas que indicam problemas
 
     # Verificar se todas as variáveis de problemas estão em "0"
     if all(dados_df[variavel].iloc[0] == 0 for variavel in variaveis_de_problemas):
