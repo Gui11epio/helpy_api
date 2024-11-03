@@ -14,6 +14,12 @@ def predict():
     # Converter os dados em DataFrame
     try:
         dados_df = pd.DataFrame([dados])
+
+        # Converta as colunas numéricas que o modelo espera
+        colunas_numericas = ['ano_fabricacao', 'quilometragem']  # Substitua pelas colunas numéricas reais
+        for coluna in colunas_numericas:
+            if coluna in dados_df.columns:
+                dados_df[coluna] = pd.to_numeric(dados_df[coluna], errors='coerce')
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
 
