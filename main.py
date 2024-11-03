@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 import joblib
 import pandas as pd
-import unidecode
 
 app = Flask(__name__)
 
